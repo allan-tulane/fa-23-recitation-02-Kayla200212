@@ -38,18 +38,37 @@ where $W(1) = 1$.
 
 - [ ] 3. (2 point) Now implement `work_calc`, which generalizes the above so that we can now input $a$, $b$ and a *function* $f(n)$ as arguments. Test this code by completing the test cases in `test_work` and adding 3 more cases.
 
-- [ ] 4. (2 point) Now, derive the asymptotic behavior of W(n) using f(n) = 1, f(n) = \log n and f(n) = n. Then, generate actual values for W(n) for your code and confirm that the trends match your derivations.
+- [ ] 4. (2 point) Now, derive the asymptotic behavior of W(n) using f(n) = 1, f(n) = log n and f(n) = n. Then, generate actual values for W(n) for your code and confirm that the trends match your derivations.
 
 **TODO: 
-f(n) = 1: root=1, level 1=
-f(n) = log(n):
-f(n) = n: root=n, level 1= n/2 and n/2
+f(n) = 1: root is 1, level 1 is 1 * 2 (2 nodes) so it is leaf dominated, n leaves * 1 (constant) per leaf. for ours this gives us O(n)
+
+f(n) = log(n): root is logn, level 1 is log(n/2) and log(n/2) meaning its root dominated because the leafs are smaller. for ours this gives us O(log^2n)
+
+f(n) = n: root is n, level 1 is n/2 and n/2 added equals n, meaning it is balanced and the max cost per level is n*levels. for ours this gives us O(nlogn)
 **
 
-- [ ] 5. (4 points) Now that you have a nice way to empirically generate valuess of $W(n)$, we can look at the relationship between $a$, $b$, and $f(n)$. Suppose that $f(n) = n^c$. What is the asypmptotic behavior of $W(n)$ if $c < \log_b a$? What about $c > \log_b a$? And if they are equal? Modify `test_compare_work` to compare empirical values for different work functions (at several different values of $n$) to justify your answer. 
+- [ ] 5. (4 points) Now that you have a nice way to empirically generate valuess of W(n), we can look at the relationship between a, b, and f(n). Suppose that f(n) = n^c. What is the asypmptotic behavior of W(n) if c < log_b a? What about c > log_b a? And if they are equal? Modify `test_compare_work` to compare empirical values for different work functions (at several different values of $n$) to justify your answer. 
 
-**TODO: your answer goes here**
+**
+"if the c power is less than log base b of a" and if a=b=2 then logb(a) is 1
+if c < log_b(a):
+work is O(n) because if we plug in the numbers so that c is smaller than 1: W(n)=2*W(n/2)+n^log_2(1) which simplifies to 2*W(n/2)+1 (because n^0=1). Thus, root=1 and leaf level 1 = 2*1 like above so it is leaf dominated.
+if c > log_b(a):
+Work is O(n^2) because: W(n) = 2W(n/2) + n^log2(4) as 4>2 which simplifies to W(n) = 2W(n/2) + n^2. Root is n^2 and following leaf level is (n/2)^2 making it root dominated.
+if c = log_b(a):
+work is O(nlogn) because: W(n)=2*W(n/2)+n^log_2(2) which simplifies to 2W(n/2) + n. Thus, root is n and leaf level 1 is n/2 and n/2 which adds up to n, confirming its balanced and the work is n * log n
 
-- [ ] 6. (3 points) $W(n)$ is meant to represent the running time of some recursive algorithm. Suppose we always had $a$ processors available to us and we wanted to compute the span of the same algorithm. Implement the function `span_calc` to compute the empirical span, where the work of the algorithm is given by $W(n)$. Implement `test_compare_span` to create a new comparison function for comparing span functions. Derive the asymptotic expressions for the span of the recurrences you used in problem 4 above. Confirm that everything matches up as it should. 
+Both of our replits were not working so this was completed in visual studios where neither of us could get tabulate or pytests to work properly
+**
 
-**TODO: your answer goes here**
+- [ ] 6. (3 points) W(n) is meant to represent the running time of some recursive algorithm. Suppose we always had $a$ processors available to us and we wanted to compute the span of the same algorithm. Implement the function `span_calc` to compute the empirical span, where the work of the algorithm is given by $W(n)$. Implement `test_compare_span` to create a new comparison function for comparing span functions. Derive the asymptotic expressions for the span of the recurrences you used in problem 4 above. Confirm that everything matches up as it should. 
+
+**
+f(n) = 1
+S(n) is O(logn). root = 1, leaf 1 is 1. since the tree is balanced, we also know the height is logn which is our span.
+f(n) = log n
+S(n) is O(log^2n). root=logn, level 1 leaf is log(n/2) being leaf dominated. 
+f(n) = n
+S(n) is O(n). root=n, level 1 leaf=n/2 being root dominated. 
+**
