@@ -8,7 +8,7 @@ import time
 ###
 
 def simple_work_calc(n, a, b):
-	"""Compute the value of the recurrence $W(n) = aW(n/b) + n
+	"""Compute the value of the recurrence W(n) = aW(n/b) + n
 
 	Params:
 	n......input integer
@@ -20,7 +20,7 @@ def simple_work_calc(n, a, b):
 	# TODO
 	if n == 1:
 		print(n, a, b)
-		return a * 1 - n
+		return a * 1 + n
   	#otherwise
 	else:
 		print(n, a, b)
@@ -45,13 +45,12 @@ def work_calc(n, a, b, f):
 	# TODO
 	if n==1:
 		print(n,a,b)
-		return a * 1 - n
+		return a * 1 + n
 	else:
 		print(n,a,b)
 		new_n = n // b
 		new_w = a * work_calc(new_n, a, b) + simple_work_calc
 		return new_w
-	pass
 
 def span_calc(n, a, b, f):
 	"""Compute the span associated with the recurrence $W(n) = aW(n/b) + f(n)
@@ -81,7 +80,7 @@ def compare_work(work_fn1, work_fn2, sizes=[10, 20, 50, 100, 1000, 5000, 10000])
 	
 	"""
 	result = []
-	for n in input_sizes:
+	for n in sizes:
 		# compute W(n) using current a, b, f
 		result.append((
 			n,
@@ -107,5 +106,23 @@ def test_compare_work():
     res = compare_work(work_fn1, work_fn2)
 	print(res)
 
+def compare_span(span_fn1, span_fn2, sizes=[10, 20, 50, 100, 1000, 5000, 10000]):
+	"""
+	Compare the values of different recurrences for
+	given input sizes.
+	Returns:
+	A list of tuples of the form
+	(n, work_fn1(n), work_fn2(n), ...)
+	"""
+	result = []
+	for n in sizes:
+		# compute W(n) using current a, b, f
+		result.append((
+		n,
+		span_fn1,
+		span_fn2
+		))
+	return result
 def test_compare_span():
 	# TODO
+	pass
