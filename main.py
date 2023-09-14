@@ -64,8 +64,10 @@ def span_calc(n, a, b, f):
 
 	Returns: the value of W(n).
 	"""
-	# TODO
-	pass
+	if n==1:
+		return n
+	else:
+		return f(n) + span_calc(n // b, a, b, f)
 
 
 
@@ -96,16 +98,6 @@ def print_results(results):
 							floatfmt=".3f",
 							tablefmt="github"))
 
-def test_compare_work():
-	# curry work_calc to create multiple work
-	# functions taht can be passed to compare_work
-    
-	# create work_fn1
-	# create work_fn2
-
-    res = compare_work(work_fn1, work_fn2)
-	print(res)
-
 def compare_span(span_fn1, span_fn2, sizes=[10, 20, 50, 100, 1000, 5000, 10000]):
 	"""
 	Compare the values of different recurrences for
@@ -123,6 +115,3 @@ def compare_span(span_fn1, span_fn2, sizes=[10, 20, 50, 100, 1000, 5000, 10000])
 		span_fn2
 		))
 	return result
-def test_compare_span():
-	# TODO
-	pass
